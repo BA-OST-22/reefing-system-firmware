@@ -8,11 +8,13 @@
 #include "cmsis_os.h"
 #include "task_sensor_read.h"
 #include "config/globals.h"
+#include "util/log.h"
 
 void task_sensor_read(void *argument) {
 
-	int32_t tick_count = osKernelGetTickCount();
+	uint32_t tick_count = osKernelGetTickCount();
 	uint32_t tick_update = osKernelGetTickFreq() / SAMPLING_FREQ;
+	osDelay(2000);
 
 	while (1) {
 

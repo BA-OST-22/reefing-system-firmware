@@ -39,6 +39,7 @@
 #include "tasks/task_heater.h"
 #include "tasks/task_sensor_read.h"
 #include "tasks/task_state_est.h"
+#include "util/log.h"
 
 /* USER CODE END PTD */
 
@@ -216,6 +217,8 @@ int main(void)
 
   fifo_init(&usb_output_fifo, usb_fifo_out_buffer, USB_OUTPUT_BUFFER_SIZE);
   fifo_init(&usb_input_fifo, usb_fifo_in_buffer, USB_INPUT_BUFFER_SIZE);
+
+  log_enable();
   //dcdc_enable();
   /* USER CODE END 2 */
 
@@ -637,6 +640,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 void StartDefaultTask(void *argument)
 {
   /* init code for USB_DEVICE */
+  log_init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 5 */
   int counter = 0;
@@ -673,10 +677,6 @@ void StartDefaultTask(void *argument)
 	  acceleration_mg[1] = lsm6dsr_from_fs16g_to_mg(data_raw_acceleration[1]);
 	  acceleration_mg[2] =  lsm6dsr_from_fs16g_to_mg(data_raw_acceleration[2]);
 
-
-
-	  uint8_t hello[] = "hello from usb\n";
-	  fifo_write_bytes(&usb_output_fifo, hello, sizeof(hello));
     osDelay(100);
   }
   /* USER CODE END 5 */

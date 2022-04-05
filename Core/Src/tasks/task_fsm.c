@@ -12,12 +12,14 @@
 
 void task_fsm(void *argument) {
 
-	int32_t tick_count = osKernelGetTickCount();
+	uint32_t tick_count = osKernelGetTickCount();
 	uint32_t tick_update = osKernelGetTickFreq() / SAMPLING_FREQ;
 
 	while (1) {
 
 		tick_count += tick_update;
 		osDelayUntil(tick_count);
+
+
 	}
 }

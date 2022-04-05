@@ -6,7 +6,6 @@
  */
 #include "math.h"
 #include "dcdc.h"
-#include "main.h"
 
 #define DCDC_SPI_HANDLE hspi2
 

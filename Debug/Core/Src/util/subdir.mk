@@ -5,13 +5,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Core/Src/util/fifo.c 
+../Core/Src/util/fifo.c \
+../Core/Src/util/log.c 
 
 OBJS += \
-./Core/Src/util/fifo.o 
+./Core/Src/util/fifo.o \
+./Core/Src/util/log.o 
 
 C_DEPS += \
-./Core/Src/util/fifo.d 
+./Core/Src/util/fifo.d \
+./Core/Src/util/log.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -21,7 +24,7 @@ Core/Src/util/%.o: ../Core/Src/util/%.c Core/Src/util/subdir.mk
 clean: clean-Core-2f-Src-2f-util
 
 clean-Core-2f-Src-2f-util:
-	-$(RM) ./Core/Src/util/fifo.d ./Core/Src/util/fifo.o
+	-$(RM) ./Core/Src/util/fifo.d ./Core/Src/util/fifo.o ./Core/Src/util/log.d ./Core/Src/util/log.o
 
 .PHONY: clean-Core-2f-Src-2f-util
 
