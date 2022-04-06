@@ -24,6 +24,7 @@ RM := rm -rf
 -include Core/Src/sensors/subdir.mk
 -include Core/Src/drivers/subdir.mk
 -include Core/Src/config/subdir.mk
+-include Core/Src/cli/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk
 

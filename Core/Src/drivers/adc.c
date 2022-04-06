@@ -9,17 +9,16 @@
 
 extern ADC_HandleTypeDef hadc1;
 
-void ADC_Select(adc_source_t channel)
-{
+void ADC_Select(adc_source_t channel) {
 	ADC_ChannelConfTypeDef sConfig = {0};
-	  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
-	  */
-	  sConfig.Channel = (uint32_t)channel;
-	  sConfig.Rank = 1;
-	  sConfig.SamplingTime = ADC_SAMPLETIME_56CYCLES;
-	  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK){
-	    return;
-	  }
+	/** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
+	*/
+	sConfig.Channel = (uint32_t)channel;
+	sConfig.Rank = 1;
+	sConfig.SamplingTime = ADC_SAMPLETIME_56CYCLES;
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK){
+	return;
+	}
 }
 
 uint32_t ADC_Get(adc_source_t channel){

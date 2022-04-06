@@ -24,6 +24,3 @@ void wake_up(){
 	/* Clear Wake Up Flag */
 	__HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
 }
-
-
-

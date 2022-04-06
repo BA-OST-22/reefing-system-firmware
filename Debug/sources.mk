@@ -20,6 +20,7 @@ OBJCOPY_BIN :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+Core/Src/cli \
 Core/Src/config \
 Core/Src/drivers \
 Core/Src \

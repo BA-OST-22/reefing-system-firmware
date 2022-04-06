@@ -1,3 +1,8 @@
+"./Core/Src/cli/cli.o"
+"./Core/Src/cli/cli_commands.o"
+"./Core/Src/cli/settings.o"
+"./Core/Src/config/config.o"
+"./Core/Src/config/eeprom.o"
 "./Core/Src/config/globals.o"
 "./Core/Src/drivers/adc.o"
 "./Core/Src/drivers/dcdc.o"
