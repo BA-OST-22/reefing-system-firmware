@@ -5,18 +5,21 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/Src/tasks/task_buzzer.c \
 ../Core/Src/tasks/task_fsm.c \
 ../Core/Src/tasks/task_heater.c \
 ../Core/Src/tasks/task_sensor_read.c \
 ../Core/Src/tasks/task_state_est.c 
 
 OBJS += \
+./Core/Src/tasks/task_buzzer.o \
 ./Core/Src/tasks/task_fsm.o \
 ./Core/Src/tasks/task_heater.o \
 ./Core/Src/tasks/task_sensor_read.o \
 ./Core/Src/tasks/task_state_est.o 
 
 C_DEPS += \
+./Core/Src/tasks/task_buzzer.d \
 ./Core/Src/tasks/task_fsm.d \
 ./Core/Src/tasks/task_heater.d \
 ./Core/Src/tasks/task_sensor_read.d \
@@ -30,7 +33,7 @@ Core/Src/tasks/%.o: ../Core/Src/tasks/%.c Core/Src/tasks/subdir.mk
 clean: clean-Core-2f-Src-2f-tasks
 
 clean-Core-2f-Src-2f-tasks:
-	-$(RM) ./Core/Src/tasks/task_fsm.d ./Core/Src/tasks/task_fsm.o ./Core/Src/tasks/task_heater.d ./Core/Src/tasks/task_heater.o ./Core/Src/tasks/task_sensor_read.d ./Core/Src/tasks/task_sensor_read.o ./Core/Src/tasks/task_state_est.d ./Core/Src/tasks/task_state_est.o
+	-$(RM) ./Core/Src/tasks/task_buzzer.d ./Core/Src/tasks/task_buzzer.o ./Core/Src/tasks/task_fsm.d ./Core/Src/tasks/task_fsm.o ./Core/Src/tasks/task_heater.d ./Core/Src/tasks/task_heater.o ./Core/Src/tasks/task_sensor_read.d ./Core/Src/tasks/task_sensor_read.o ./Core/Src/tasks/task_state_est.d ./Core/Src/tasks/task_state_est.o
 
 .PHONY: clean-Core-2f-Src-2f-tasks
 

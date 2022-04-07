@@ -46,7 +46,10 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
+extern SPI_HandleTypeDef hspi1;
 extern SPI_HandleTypeDef hspi2;
+
+extern TIM_HandleTypeDef htim4;
 
 /* USER CODE END EM */
 

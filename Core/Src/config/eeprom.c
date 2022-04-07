@@ -7,26 +7,22 @@
 #define   PAGE_NUM              2
 
 #define   _EE_USE_FLASH_PAGE_OR_SECTOR              (1)
-#define   _EE_VOLTAGE                               FLASH_VOLTAGE_RANGE_3 //  use in some devices
+#define   _EE_VOLTAGE                               FLASH_VOLTAGE_RANGE_3
 
 
-#if defined(STM32F411xE)
 #define   _EE_SIZE              (1024 * 16)
 #define   _EE_ADDR_INUSE        (((uint32_t)0x08000000) | (_EE_SIZE * _EE_USE_FLASH_PAGE_OR_SECTOR ))
 #define   _EE_FLASH_BANK        FLASH_BANK_1
 #define   _EE_VOLTAGE_RANGE     _EE_VOLTAGE
 #define   _EE_PAGE_OR_SECTOR    SECTOR
-#endif
 
 
-//##########################################################################################################
-bool ee_init(void)
-{
+bool ee_init(void) {
   return true;
 }
-//##########################################################################################################
-bool ee_format()
-{
+
+
+bool ee_format() {
   uint32_t error;
   HAL_FLASH_Unlock();
   FLASH_EraseInitTypeDef flashErase;
@@ -50,9 +46,8 @@ bool ee_format()
   HAL_FLASH_Lock();
   return false;
 }
-//##########################################################################################################
-bool ee_read(uint32_t startVirtualAddress, uint32_t len, uint8_t* data)
-{
+
+bool ee_read(uint32_t startVirtualAddress, uint32_t len, uint8_t* data) {
   if ((startVirtualAddress + len) > _EE_SIZE)
     return false;
   for (uint32_t i = startVirtualAddress; i < len + startVirtualAddress; i++)
@@ -65,9 +60,8 @@ bool ee_read(uint32_t startVirtualAddress, uint32_t len, uint8_t* data)
   }
   return true;
 }
-//##########################################################################################################
-bool ee_write(uint32_t startVirtualAddress, uint32_t len, uint8_t *data)
-{
+
+bool ee_write(uint32_t startVirtualAddress, uint32_t len, uint8_t *data) {
   if ((startVirtualAddress + len) > _EE_SIZE)
     return false;
   if (data == NULL)
@@ -84,9 +78,7 @@ bool ee_write(uint32_t startVirtualAddress, uint32_t len, uint8_t *data)
   HAL_FLASH_Lock();
   return true;
 }
-//##########################################################################################################
-uint32_t  ee_maxVirtualAddress(void)
-{
+
+uint32_t  ee_maxVirtualAddress(void) {
   return (_EE_SIZE);  
 }
-//##########################################################################################################

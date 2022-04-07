@@ -20,6 +20,8 @@ void task_fsm(void *argument) {
 	uint32_t tick_count = osKernelGetTickCount();
 	uint32_t tick_update = osKernelGetTickFreq() / SAMPLING_FREQ;
 
+	osDelay(2000);
+
 	config_init();
 	config_load();
 
@@ -36,6 +38,8 @@ void task_fsm(void *argument) {
 	} else {
 		log_info("Config loading successful!");
 	}
+
+	osEventFlagsSet(buzzer_event_id, BEEP_BOOTUP);
 
 	//ee_write(12, 10, data_write);
 	//ee_writeToRam(uint32_t startVirtualAddress, uint32_t len, uint8_t* data); //  only use when _EE_USE_RAM_BYTE is enabled

@@ -107,6 +107,7 @@ static void cli_cmd_save(const char *cmd_name, char *args) {
     }
   }
   cli_print_line("Successfully written to flash");
+  osEventFlagsSet(buzzer_event_id, BEEP_OK);
 }
 
 static void cli_cmd_get(const char *cmd_name, char *args) {

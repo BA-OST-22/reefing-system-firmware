@@ -6,16 +6,19 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/Src/drivers/adc.c \
+../Core/Src/drivers/buzzer.c \
 ../Core/Src/drivers/dcdc.c \
 ../Core/Src/drivers/sleep.c 
 
 OBJS += \
 ./Core/Src/drivers/adc.o \
+./Core/Src/drivers/buzzer.o \
 ./Core/Src/drivers/dcdc.o \
 ./Core/Src/drivers/sleep.o 
 
 C_DEPS += \
 ./Core/Src/drivers/adc.d \
+./Core/Src/drivers/buzzer.d \
 ./Core/Src/drivers/dcdc.d \
 ./Core/Src/drivers/sleep.d 
 
@@ -27,7 +30,7 @@ Core/Src/drivers/%.o: ../Core/Src/drivers/%.c Core/Src/drivers/subdir.mk
 clean: clean-Core-2f-Src-2f-drivers
 
 clean-Core-2f-Src-2f-drivers:
-	-$(RM) ./Core/Src/drivers/adc.d ./Core/Src/drivers/adc.o ./Core/Src/drivers/dcdc.d ./Core/Src/drivers/dcdc.o ./Core/Src/drivers/sleep.d ./Core/Src/drivers/sleep.o
+	-$(RM) ./Core/Src/drivers/adc.d ./Core/Src/drivers/adc.o ./Core/Src/drivers/buzzer.d ./Core/Src/drivers/buzzer.o ./Core/Src/drivers/dcdc.d ./Core/Src/drivers/dcdc.o ./Core/Src/drivers/sleep.d ./Core/Src/drivers/sleep.o
 
 .PHONY: clean-Core-2f-Src-2f-drivers
 

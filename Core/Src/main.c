@@ -18,7 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "cmsis_os.h"
+#include "cmsis_os2.h"
 #include "usb_device.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -35,6 +35,7 @@
 #include "util/fifo.h"
 #include "config/globals.h"
 
+#include "tasks/task_buzzer.h"
 #include "tasks/task_fsm.h"
 #include "tasks/task_heater.h"
 #include "tasks/task_sensor_read.h"
@@ -84,6 +85,7 @@ SET_TASK_PARAMS(task_sensor_read, 512)
 SET_TASK_PARAMS(task_fsm, 512)
 SET_TASK_PARAMS(task_state_est, 512)
 SET_TASK_PARAMS(task_heater, 256)
+SET_TASK_PARAMS(task_buzzer, 256)
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -238,7 +240,7 @@ int main(void)
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
+  buzzer_event_id = osEventFlagsNew(NULL);
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -250,6 +252,7 @@ int main(void)
   osThreadNew(task_fsm, NULL, &task_fsm_attributes);
   osThreadNew(task_heater, NULL, &task_heater_attributes);
   osThreadNew(task_state_est, NULL, &task_state_est_attributes);
+  osThreadNew(task_buzzer, NULL, &task_buzzer_attributes);
 
   /* USER CODE END RTOS_THREADS */
 

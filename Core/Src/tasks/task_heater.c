@@ -18,7 +18,7 @@
 void task_heater(void *argument) {
 
 	uint32_t tick_count = osKernelGetTickCount();
-	uint32_t tick_update = osKernelGetTickFreq() / SAMPLING_FREQ_HEATER;
+	uint32_t tick_update = 5000; //osKernelGetTickFreq() / SAMPLING_FREQ_HEATER;
 
 	while (1) {
 		float temperature = 0;
@@ -29,7 +29,7 @@ void task_heater(void *argument) {
 		if(status != TMP_OK) {
 			log_error("No thermocouple connected!");
 		} else {
-			log_info("Current thermocouple temperature: %d", (int32_t)temperature);
+			log_info("Current thermocouple temperature: %ld", (int32_t)temperature);
 		}
 		//dcdc_set_voltage(8);
 		//dcdc_enable();
