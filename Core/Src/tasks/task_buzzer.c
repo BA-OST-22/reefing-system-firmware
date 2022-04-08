@@ -19,7 +19,7 @@
 #define BUZZER_SHORT_PAUSE 100
 #define BUZZER_LONG_PAUSE  1000
 
-const uint32_t pitch_lookup[8] = {
+static const uint32_t pitch_lookup[8] = {
 	2217,  // C# 	A
 	2349,  // D 	B
     2489,  // D# 	C
@@ -30,11 +30,11 @@ const uint32_t pitch_lookup[8] = {
 	1200,  // Error H
 };
 
-const uint8_t nr_buz[6] = {
+static const uint8_t nr_buz[6] = {
 		0, 1, 1, 4, 3, 3
 };
 
-const char beep_codes[6][BUZZER_COMMAND_MAX_LENGTH] = {
+static const char beep_codes[6][BUZZER_COMMAND_MAX_LENGTH] = {
     " ",
     "g",   // ok
 	"h",   // nok

@@ -62,8 +62,6 @@ const size_t NUM_CLI_COMMANDS = sizeof cmd_table / sizeof cmd_table[0];
 
 static void cli_set_var(const cli_value_t *var, uint32_t value);
 
-static void fill_buf(uint8_t *buf, size_t buf_sz);
-
 /** CLI command function definitions **/
 
 static void cli_cmd_help(const char *cmd_name, char *args) {

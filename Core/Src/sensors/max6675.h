@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "main.h"
+#include "target/target.h"
 
 typedef enum{
 	TMP_OK = 0,

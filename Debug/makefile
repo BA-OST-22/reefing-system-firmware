@@ -21,7 +21,10 @@ RM := rm -rf
 -include Core/Startup/subdir.mk
 -include Core/Src/util/subdir.mk
 -include Core/Src/tasks/subdir.mk
+-include Core/Src/target/subdir.mk
 -include Core/Src/sensors/subdir.mk
+-include Core/Src/init/subdir.mk
+-include Core/Src/flight/subdir.mk
 -include Core/Src/drivers/subdir.mk
 -include Core/Src/config/subdir.mk
 -include Core/Src/cli/subdir.mk

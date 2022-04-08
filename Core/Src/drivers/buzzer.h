@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "main.h"
+#include "target/target.h"
 
 /** Exported Types **/
 

@@ -1,4 +1,5 @@
-#include "main.h"
+#include "target/target.h"
+#include "init/init.h"
 #include "sleep.h"
 
 void go_to_sleep(){
@@ -23,4 +24,9 @@ void go_to_sleep(){
 void wake_up(){
 	/* Clear Wake Up Flag */
 	__HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+  wake_up();
+  __HAL_GPIO_EXTI_CLEAR_IT(GPIO_Pin);
 }

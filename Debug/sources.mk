@@ -23,8 +23,11 @@ SUBDIRS := \
 Core/Src/cli \
 Core/Src/config \
 Core/Src/drivers \
+Core/Src/flight \
 Core/Src \
+Core/Src/init \
 Core/Src/sensors \
+Core/Src/target \
 Core/Src/tasks \
 Core/Src/util \
 Core/Startup \
