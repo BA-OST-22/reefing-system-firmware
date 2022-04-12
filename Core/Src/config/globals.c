@@ -16,7 +16,9 @@ fifo_t usb_output_fifo;
 uint8_t usb_fifo_out_buffer[USB_OUTPUT_BUFFER_SIZE];
 uint8_t usb_fifo_in_buffer[USB_INPUT_BUFFER_SIZE];
 
+bool global_usb_initialized_flag = false;
+
 
 osEventFlagsId_t buzzer_event_id;
-
-BUZ_DEV BUZZER = {.timer = &htim4, .channel = TIM_CHANNEL_1, .arr = 4000, .start = 0, .started = 0, .volume = 100};
+osEventFlagsId_t sensor_mode_id;
+osEventFlagsId_t state_est_mode_id;

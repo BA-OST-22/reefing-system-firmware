@@ -1,7 +1,7 @@
 /*
  * This file was part of Cleanflight and Betaflight.
  * https://github.com/betaflight/betaflight
- * It is modified for the CATS Flight Software.
+ * It is modified for the Reefing System Firmware.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

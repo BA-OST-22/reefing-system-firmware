@@ -1,9 +1,9 @@
+#include <tasks/definition.h>
 #include "main.h"
 #include "init.h"
 #include "usb_device.h"
 #include "cmsis_os2.h"
 
-#include "tasks/task_definition.h"
 #include "target/target.h"
 #include "util/log.h"
 #include "config/globals.h"
@@ -35,18 +35,20 @@ void init(){
 	MX_USART1_UART_Init();
 
 	HAL_NVIC_DisableIRQ(EXTI2_IRQn);
+	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
 
 	/* FreeRTOS Init */
 
 	osKernelInitialize();
 
 	buzzer_event_id = osEventFlagsNew(NULL);
+	sensor_mode_id = osEventFlagsNew(NULL);
+	state_est_mode_id = osEventFlagsNew(NULL);
 
-	osThreadNew(task_sensor_read, NULL, &task_sensor_read_attributes);
-	osThreadNew(task_fsm, NULL, &task_fsm_attributes);
-	osThreadNew(task_buzzer, NULL, &task_buzzer_attributes);
-	osThreadNew(task_heater, NULL, &task_heater_attributes);
-	osThreadNew(task_state_est, NULL, &task_state_est_attributes);
+	//osThreadNew(task_sensor_read, NULL, &task_sensor_read_attributes);
+	//osThreadNew(task_heater, NULL, &task_heater_attributes);
+	//osThreadNew(task_state_est, NULL, &task_state_est_attributes);
+
 
 	/* USB Init */
 
@@ -56,6 +58,7 @@ void init(){
 	log_init();
 
 	if(HAL_GPIO_ReadPin(USB_DET_GPIO_Port, USB_DET_Pin)){
+		global_usb_initialized_flag = true;
 		MX_USB_DEVICE_Init();
 		/* Give the USB some time to initialize */
 		HAL_Delay(1500);
@@ -81,9 +84,45 @@ void init(){
 		log_info("Config loading successful!");
 	}
 
+	osThreadNew(task_fsm, NULL, &task_fsm_attributes);
+	osThreadNew(task_buzzer, NULL, &task_buzzer_attributes);
+	osThreadNew(task_supervision, NULL, &task_supervision_attributes);
 	/* Start FreeRTOS Kernel */
-
 	osKernelStart();
+}
+
+void init_idle(){
+	MX_GPIO_Init();
+	MX_ADC1_Init();
+	MX_TIM4_Init();
+	MX_SPI1_Init();
+	MX_SPI2_Init();
+	MX_USART1_UART_Init();
+
+	HAL_NVIC_DisableIRQ(EXTI2_IRQn);
+	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
+}
+
+void init_deepsleep(){
+
+	/* DeInit all unused IO */
+	if(global_usb_initialized_flag == true){
+		MX_USB_DEVICE_DeInit();
+		global_usb_initialized_flag = false;
+	}
+	HAL_ADC_DeInit(&hadc1);
+	HAL_SPI_DeInit(&hspi1);
+	HAL_SPI_DeInit(&hspi2);
+	HAL_TIM_PWM_DeInit(&htim4);
+	HAL_UART_DeInit(&huart1);
+
+	/* Disable unused IRQ */
+	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
+}
+
+void init_cli(){
+	log_disable();
+	osThreadNew(task_cli, NULL, &task_cli_attributes);
 }
 
 /**

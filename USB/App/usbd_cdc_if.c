@@ -104,6 +104,7 @@ static int8_t CDC_Init_FS(void) {
  */
 static int8_t CDC_DeInit_FS(void) {
   /* USER CODE BEGIN 4 */
+  HAL_TIM_Base_DeInit(&TimHandle);
   return (USBD_OK);
   /* USER CODE END 4 */
 }

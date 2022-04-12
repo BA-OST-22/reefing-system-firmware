@@ -3,9 +3,11 @@
 #include "config/eeprom.h"
 
 const config_u DEFAULT_CONFIG = {.config.config_version = CONFIG_VERSION,
-                                      .config.main_altitude = 150,
-                                      .config.liftoff_acc_threshold = 35,
-									  .config.timer_duration = 0};
+                                    .config.main_altitude = 150,
+                                    .config.liftoff_acc_threshold = 35,
+									.config.timer_duration = 0,
+									.config.use_telemetry = 0};
+
 
 config_u global_config = {};
 

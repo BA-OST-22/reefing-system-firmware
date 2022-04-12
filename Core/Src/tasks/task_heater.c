@@ -20,6 +20,17 @@ void task_heater(void *argument) {
 
 	HAL_GPIO_WritePin(P_EN_CUT_GPIO_Port, P_EN_CUT_Pin, GPIO_PIN_SET);
 
+	dcdc_set_voltage(12);
+	dcdc_enable();
+
+	osDelay(1000);
+	HAL_GPIO_WritePin(CUT_EN_GPIO_Port, CUT_EN_Pin, GPIO_PIN_SET);
+
+	osDelay(15000);
+
+	dcdc_disable();
+	HAL_GPIO_WritePin(CUT_EN_GPIO_Port, CUT_EN_Pin, GPIO_PIN_RESET);
+
 	uint32_t tick_count = osKernelGetTickCount();
 	uint32_t tick_update = 5000; //osKernelGetTickFreq() / SAMPLING_FREQ_HEATER;
 	while (1) {
@@ -33,8 +44,7 @@ void task_heater(void *argument) {
 		} else {
 			log_info("Current thermocouple temperature: %ld", (int32_t)temperature);
 		}
-		//dcdc_set_voltage(8);
-		//dcdc_enable();
+
 
 		tick_count += tick_update;
 		osDelayUntil(tick_count);

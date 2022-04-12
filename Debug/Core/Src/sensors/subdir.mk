@@ -5,16 +5,22 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/Src/sensors/lsm6dsr.c \
 ../Core/Src/sensors/lsm6dsr_reg.c \
-../Core/Src/sensors/max6675.c 
+../Core/Src/sensors/max6675.c \
+../Core/Src/sensors/ms5607.c 
 
 OBJS += \
+./Core/Src/sensors/lsm6dsr.o \
 ./Core/Src/sensors/lsm6dsr_reg.o \
-./Core/Src/sensors/max6675.o 
+./Core/Src/sensors/max6675.o \
+./Core/Src/sensors/ms5607.o 
 
 C_DEPS += \
+./Core/Src/sensors/lsm6dsr.d \
 ./Core/Src/sensors/lsm6dsr_reg.d \
-./Core/Src/sensors/max6675.d 
+./Core/Src/sensors/max6675.d \
+./Core/Src/sensors/ms5607.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -24,7 +30,7 @@ Core/Src/sensors/%.o: ../Core/Src/sensors/%.c Core/Src/sensors/subdir.mk
 clean: clean-Core-2f-Src-2f-sensors
 
 clean-Core-2f-Src-2f-sensors:
-	-$(RM) ./Core/Src/sensors/lsm6dsr_reg.d ./Core/Src/sensors/lsm6dsr_reg.o ./Core/Src/sensors/max6675.d ./Core/Src/sensors/max6675.o
+	-$(RM) ./Core/Src/sensors/lsm6dsr.d ./Core/Src/sensors/lsm6dsr.o ./Core/Src/sensors/lsm6dsr_reg.d ./Core/Src/sensors/lsm6dsr_reg.o ./Core/Src/sensors/max6675.d ./Core/Src/sensors/max6675.o ./Core/Src/sensors/ms5607.d ./Core/Src/sensors/ms5607.o
 
 .PHONY: clean-Core-2f-Src-2f-sensors
 

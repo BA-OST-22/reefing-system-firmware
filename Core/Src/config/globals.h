@@ -8,8 +8,7 @@
 #pragma once
 
 #include "util/fifo.h"
-#include "cmsis_os2.h"
-#include "drivers/buzzer.h"
+#include "cmsis_os.h"
 
 
 /* Sampling rate for all time dependent operations */
@@ -26,6 +25,7 @@ extern fifo_t usb_output_fifo;
 extern uint8_t usb_fifo_out_buffer[USB_OUTPUT_BUFFER_SIZE];
 extern uint8_t usb_fifo_in_buffer[USB_INPUT_BUFFER_SIZE];
 
+extern bool global_usb_initialized_flag;
 
 typedef enum{
 	NO_BEEP = 0,
@@ -34,8 +34,22 @@ typedef enum{
 	BEEP_BOOTUP,
 	BEEP_READY,
 	BEEP_NOT_READY,
-}beeps_t;
+}beeps_e;
 
 extern osEventFlagsId_t buzzer_event_id;
 
-extern BUZ_DEV BUZZER;
+typedef enum {
+	SENSOR_MODE_CONTINUOUS = 1,
+	SENSOR_MODE_WAKEUP,
+	SENSOR_MODE_SHUTDOWN,
+} sensor_mode_e;
+
+extern osEventFlagsId_t sensor_mode_id;
+
+typedef enum {
+	STATE_EST_MODE_ASCENT = 1,
+	STATE_EST_MODE_DECENT,
+	STATE_EST_MODE_SHUTDOWN,
+} state_est_mode_e;
+
+extern osEventFlagsId_t state_est_mode_id;

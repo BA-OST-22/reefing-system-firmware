@@ -13,6 +13,8 @@ typedef struct {
   uint32_t main_altitude;
   uint32_t liftoff_acc_threshold;
   uint32_t timer_duration;
+  uint8_t use_telemetry;
+  uint8_t link_phrase[10];
 } config_t;
 
 typedef union {

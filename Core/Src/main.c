@@ -9,7 +9,7 @@
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
+  * in the root directory of this software component.c
   * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
@@ -17,6 +17,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "init/init.h"
+#include "usbd_cdc_if.h"
 
 
 int main(void) {
@@ -43,7 +44,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
   else if (htim->Instance == TIM5) {
-	  CDC_Transmit_Elapsed();
+	CDC_Transmit_Elapsed();
   }
 }
 

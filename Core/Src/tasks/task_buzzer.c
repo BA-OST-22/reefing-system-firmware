@@ -19,6 +19,8 @@
 #define BUZZER_SHORT_PAUSE 100
 #define BUZZER_LONG_PAUSE  1000
 
+static BUZ_DEV BUZZER = {.timer = &htim4, .channel = TIM_CHANNEL_1, .arr = 4000, .start = 0, .started = 0, .volume = 100};
+
 static const uint32_t pitch_lookup[8] = {
 	2217,  // C# 	A
 	2349,  // D 	B
@@ -34,23 +36,24 @@ static const uint8_t nr_buz[6] = {
 		0, 1, 1, 4, 3, 3
 };
 
-static const char beep_codes[6][BUZZER_COMMAND_MAX_LENGTH] = {
+static const char beep_codes[7][BUZZER_COMMAND_MAX_LENGTH] = {
     " ",
     "g",   // ok
 	"h",   // nok
 	"DBFG" // bootup
     "ace",  // ready
     "eca",  // not ready
+	"adc",
 };
 
 void task_buzzer(void *argument) {
-	beeps_t id;
+	beeps_e id;
 
 	buzzer_set_volume(&BUZZER, 20);
 	buzzer_set_freq(&BUZZER, 2500);
 
 	while (1) {
-		id = osEventFlagsWait(buzzer_event_id, 0x0001U, osFlagsWaitAny, osWaitForever);
+		id = osEventFlagsWait(buzzer_event_id, 0xFF, osFlagsWaitAny, osWaitForever);
 		osEventFlagsClear(buzzer_event_id, id);
 		uint32_t duration = 0;
 		for(int i = 0; i < nr_buz[id]; i++){

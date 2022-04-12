@@ -1,13 +1,11 @@
-#pragma once
+/*
+ * definition.c
+ *
+ *  Created on: 12.04.2022
+ *      Author: luca.jost
+ */
 
-#include "cmsis_os.h"
-
-#include "tasks/task_buzzer.h"
-#include "tasks/task_fsm.h"
-#include "tasks/task_heater.h"
-#include "tasks/task_sensor_read.h"
-#include "tasks/task_state_est.h"
-#include "tasks/task_cli.h"
+#include "tasks/definition.h"
 
 #define SET_TASK_PARAMS(task, stack_sz)           \
   uint32_t task##_buffer[stack_sz];               \
@@ -27,10 +25,5 @@ SET_TASK_PARAMS(task_state_est, 512)
 SET_TASK_PARAMS(task_heater, 256)
 SET_TASK_PARAMS(task_buzzer, 256)
 SET_TASK_PARAMS(task_cli, 256)
-
-osThreadId_t task_sensor_read_handle;
-osThreadId_t task_fsm_handle;
-osThreadId_t task_state_est_handle;
-osThreadId_t task_heater_handle;
-osThreadId_t task_buzzer_handle;
-osThreadId_t task_cli_handle;
+SET_TASK_PARAMS(task_supervision, 256)
+SET_TASK_PARAMS(task_telemetry, 256)

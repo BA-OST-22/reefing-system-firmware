@@ -25,7 +25,7 @@ void state_transition_ready_ascent();
 void state_transition_ascent_descent();
 
 /* Transition Descent -> Deployment */
-void state_transition_descent_deplyment();
+void state_transition_descent_deployment();
 
 /* Transition Deployment -> Recovery */
 void state_transition_deployment_recovery();

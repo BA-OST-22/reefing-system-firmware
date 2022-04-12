@@ -3,11 +3,13 @@
 #include "target/target.h"
 #include "flight/state_transition.h"
 #include "util/log.h"
+#include "drivers/led.h"
+#include "drivers/sleep.h"
+#include "config/globals.h"
 
 static void check_idle_state(fsm_t* fsm);
 static void check_deepsleep_state(fsm_t* fsm);
 static void check_ready_state(fsm_t* fsm);
-static void check_readysleep_state(fsm_t* fsm);
 static void check_ascent_state(fsm_t* fsm);
 static void check_descent_state(fsm_t* fsm);
 static void check_deplyoment_state(fsm_t* fsm);
@@ -18,7 +20,6 @@ const char* const state_name[] =
 	"IDLE",
 	"DEEP_SLEEP",
 	"READY",
-	"READY_SLEEP",
 	"ASCENT",
 	"DESCENT",
 	"DEPLOYMENT",
@@ -36,9 +37,6 @@ void update_fsm(fsm_t* fsm){
 		break;
 	case READY:
 		check_ready_state(fsm);
-		break;
-	case READY_SLEEP:
-		check_readysleep_state(fsm);
 		break;
 	case ASCENT:
 		check_ascent_state(fsm);
@@ -65,6 +63,7 @@ static void check_idle_state(fsm_t* fsm){
 
 	/* When button is pressed */
 	if(HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin) == 0){
+		led_off();
 		if(fsm->memory[1] == 0){
 			fsm->memory[0]++;
 		} else {
@@ -75,6 +74,7 @@ static void check_idle_state(fsm_t* fsm){
 	else {
 		/* Short button press */
 		if(fsm->memory[0] > SHORT_BUTTON_PRESS){
+			led_on();
 			fsm->memory[1]++; // Count timeout between button press
 		}
 		/* Button bounce or no press */
@@ -106,6 +106,7 @@ static void check_idle_state(fsm_t* fsm){
 
 	/* Timeout after short press */
 	if(fsm->memory[1] > TIMEOUT_BETWEEN_BUTTON_PRESS){
+		led_off();
 		fsm->memory[0] = 0;
 		fsm->memory[1] = 0;
 		fsm->memory[2] = 0;
@@ -113,7 +114,7 @@ static void check_idle_state(fsm_t* fsm){
 }
 
 static void check_deepsleep_state(fsm_t* fsm){
-
+	led_on();
 	/* When button is pressed */
 	if(HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin) == 0){
 		if(fsm->memory[1] == 0){
@@ -142,18 +143,22 @@ static void check_deepsleep_state(fsm_t* fsm){
 		fsm->memory[0] = 0;
 		fsm->memory[1] = 0;
 		fsm->memory[2] = 0;
+		/* Go back to sleep */
+		go_to_sleep(WAKEUP_BUTTON);
 	}
 }
 
 static void check_ready_state(fsm_t* fsm){
-
+	led_on();
 	/* When button is pressed */
 	if(HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin) == 0){
+		fsm->memory[1] = 0;
 		fsm->memory[0]++;
 	}
 	/* When button is not pressed */
 	else {
-		fsm->memory[0] = 0; // Count timeout between button press
+		fsm->memory[1]++;
+		fsm->memory[0] = 0; // Count timeout
 	}
 
 	/* Long button press */
@@ -165,10 +170,15 @@ static void check_ready_state(fsm_t* fsm){
 		fsm->flight_state = IDLE;
 		state_transition_ready_idle();
 	}
-}
 
-static void check_readysleep_state(fsm_t* fsm){
-
+	if (fsm->memory[1] > READY_TIMEOUT){
+		/* Go to sleep */
+		fsm->memory[0] = 0;
+		fsm->memory[1] = 0;
+		fsm->memory[2] = 0;
+		led_off();
+		go_to_sleep(WAKEUP_BOTH);
+	}
 }
 
 static void check_ascent_state(fsm_t* fsm){

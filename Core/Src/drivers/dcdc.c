@@ -6,6 +6,7 @@
  */
 #include "math.h"
 #include "dcdc.h"
+#include "cmsis_os.h"
 
 #define DCDC_SPI_HANDLE hspi2
 
@@ -23,7 +24,9 @@ void dcdc_set_voltage(float volt){
 	r_value = -0.791728f * powf(voltage, 3) + 25.66f * powf(voltage, 2) - 293.662f * voltage + 1199.67f;
 
 	HAL_GPIO_WritePin(R_CS_GPIO_Port, R_CS_Pin, GPIO_PIN_RESET);
+	osDelay(1);
 	HAL_SPI_Transmit(&DCDC_SPI_HANDLE, &r_value, 1, 2);
+	osDelay(1);
 	HAL_GPIO_WritePin(R_CS_GPIO_Port, R_CS_Pin, GPIO_PIN_SET);
 }
 

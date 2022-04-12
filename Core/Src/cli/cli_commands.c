@@ -1,7 +1,7 @@
 /*
  * This file was adapted from Cleanflight and Betaflight.
  * https://github.com/betaflight/betaflight
- * It is modified for the CATS Flight Software.
+ * It is modified for the Reefing System Firmware.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,6 +57,9 @@ const clicmd_t cmd_table[] = {
 };
 
 const size_t NUM_CLI_COMMANDS = sizeof cmd_table / sizeof cmd_table[0];
+
+static const char* const emptyName = "-";
+static const char* const emptyString = "";
 
 /** Helper function declarations **/
 
@@ -262,6 +265,7 @@ static void cli_cmd_set(const char *cmd_name, char *args) {
             }
 
             break;
+
           }
 
           // find next comma (or end of string)
@@ -274,6 +278,28 @@ static void cli_cmd_set(const char *cmd_name, char *args) {
         value_changed = true;
 
         break;
+      case MODE_STRING: {
+		  char *valPtr = eqptr;
+		  valPtr = skip_space(valPtr);
+
+		  const unsigned int len = strlen(valPtr);
+		  const uint8_t min = val->config.string.min_length;
+		  const uint8_t max = val->config.string.max_length;
+		  const bool updatable = ((val->config.string.flags & STRING_FLAGS_WRITEONCE) == 0 ||
+								  strlen((char *)val->pdata) == 0 ||
+								  strncmp(valPtr, (char *)val->pdata, len) == 0);
+
+		  if (updatable && len > 0 && len <= max) {
+			  memset((char *)val->pdata, 0, max);
+			  if (len >= min && strncmp(valPtr, emptyName, len)) {
+				  strncpy((char *)val->pdata, valPtr, len);
+			  }
+			  value_changed = true;
+		  } else {
+			  cli_print_error_linef(cmd_name, "STRING MUST BE 1-%d CHARACTERS OR '-' FOR EMPTY", max);
+		  }
+	  }
+	  break;
     }
 
     if (value_changed) {

@@ -1,7 +1,7 @@
 /*
  * This file was part of Cleanflight and Betaflight.
  * https://github.com/betaflight/betaflight
- * It is modified for the CATS Flight Software.
+ * It is modified for the Reefing System Firmware.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,7 +61,7 @@ void get_min_max(const cli_value_t *var, int *min, int *max) {
 
 void cli_print(const char *str) { fifo_write_str(cli_out, str); }
 
-static void cli_prompt(void) { cli_printf("\r\n^._.^:>"); }
+static void cli_prompt(void) { cli_printf("\r\n>"); }
 
 void cli_print_linefeed(void) { cli_print("\r\n"); }
 

@@ -36,7 +36,7 @@ void log_enable();
 void log_disable();
 bool log_is_enabled();
 
-#define PRINT_BUFFER_LEN 420
+#define PRINT_BUFFER_LEN 256
 extern osMutexId_t print_mutex;
 
 void log_log(int level, const char *file, int line, const char *format, ...) __attribute__((format(printf, 4, 5)));

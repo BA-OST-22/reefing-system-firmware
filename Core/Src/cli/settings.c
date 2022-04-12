@@ -1,7 +1,7 @@
 /*
  * This file was part of Cleanflight and Betaflight.
  * https://github.com/betaflight/betaflight
- * It is modified for the CATS Flight Software.
+ * It is modified for the Reefing System Firmware.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,11 +45,12 @@ const lookup_table_entry_t lookup_tables[] = {
 #undef LOOKUP_TABLE_ENTRY
 
 const cli_value_t value_table[] = {
+	{"acc_threshold", 	VAR_UINT16, 				.config.minmax_unsigned = {15, 80}, 	&global_config.config.liftoff_acc_threshold},
+    {"main_altitude", 	VAR_UINT16, 				.config.minmax_unsigned = {10, 65535}, 	&global_config.config.main_altitude},
+	{"use_telemetry", 	VAR_UINT8, 					.config.minmax_unsigned = {0, 1}, 		&global_config.config.use_telemetry},
+	{"link_phrase", 	VAR_UINT8 | MODE_STRING, 	.config.string = {4, 10}, 				global_config.config.link_phrase},
 
-    {"main_altitude", VAR_UINT16, .config.minmax_unsigned = {10, 65535},
-     &global_config.config.main_altitude},
-    {"acc_threshold", VAR_UINT16, .config.minmax_unsigned = {15, 80},
-     &global_config.config.liftoff_acc_threshold},
+
 };
 
 const uint16_t value_table_entry_count = ARRAYLEN(value_table);
