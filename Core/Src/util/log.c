@@ -17,68 +17,66 @@
  */
 
 #include "log.h"
-#include "util/fifo.h"
-#include "config/globals.h"
 #include "cmsis_os.h"
+#include "config/globals.h"
+#include "util/fifo.h"
 
-#include <string.h>
-#include <stdio.h>
 #include <stdarg.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
 
 static struct {
   int level;
   bool enabled;
 } L;
 
-static const char *level_strings[] = {"TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"};
-static const char *level_colors[] = {"\x1b[94m", "\x1b[36m", "\x1b[32m", "\x1b[33m", "\x1b[31m", "\x1b[35m"};
+static const char *level_strings[] = {"TRACE", "DEBUG", "INFO",
+                                      "WARN",  "ERROR", "FATAL"};
+static const char *level_colors[] = {"\x1b[94m", "\x1b[36m", "\x1b[32m",
+                                     "\x1b[33m", "\x1b[31m", "\x1b[35m"};
 
 osMutexId_t print_mutex;
 static char print_buffer[PRINT_BUFFER_LEN];
 
-void log_init(){
-	const osMutexAttr_t print_mutex_attr = {
-	  "print_mutex",       // human readable mutex name
-	   osMutexPrioInherit,  // attr_bits
-	   NULL,                // memory for control block
-	   0U                   // size for control block
-	};
-	print_mutex = osMutexNew(&print_mutex_attr);
+void log_init() {
+  const osMutexAttr_t print_mutex_attr = {
+      "print_mutex",      // human readable mutex name
+      osMutexPrioInherit, // attr_bits
+      NULL,               // memory for control block
+      0U                  // size for control block
+  };
+  print_mutex = osMutexNew(&print_mutex_attr);
 }
 
-void log_set_level(int level) {
-  L.level = level;
-}
+void log_set_level(int level) { L.level = level; }
 
-void log_enable() {
-  L.enabled = true;
-}
+void log_enable() { L.enabled = true; }
 
-void log_disable() {
-  L.enabled = false;
-}
+void log_disable() { L.enabled = false; }
 
-bool log_is_enabled() {
-  return L.enabled;
-}
+bool log_is_enabled() { return L.enabled; }
 
 void log_log(int level, const char *file, int line, const char *format, ...) {
-  if (L.enabled && level >= L.level && osMutexAcquire(print_mutex, 0U) == osOK) {
+  if (L.enabled && level >= L.level &&
+      osMutexAcquire(print_mutex, 5U) == osOK) {
     /* fill buffer with metadata */
     static char buf_ts[16];
-    buf_ts[snprintf(buf_ts, sizeof(buf_ts), "%lu", osKernelGetTickCount())] = '\0';
+    buf_ts[snprintf(buf_ts, sizeof(buf_ts), "%lu", osKernelGetTickCount())] =
+        '\0';
     static char buf_loc[30];
     buf_loc[snprintf(buf_loc, sizeof(buf_loc), "%s:%d:", file, line)] = '\0';
     int len;
-    len = snprintf(print_buffer, PRINT_BUFFER_LEN, "%6s %s%5s\x1b[0m \x1b[90m%30s\x1b[0m ", buf_ts, level_colors[level],
-                   level_strings[level], buf_loc);
+    len = snprintf(print_buffer, PRINT_BUFFER_LEN,
+                   "%6s %s%5s\x1b[0m \x1b[90m%30s\x1b[0m ", buf_ts,
+                   level_colors[level], level_strings[level], buf_loc);
     va_list argptr;
     va_start(argptr, format);
     vsnprintf(print_buffer + len, PRINT_BUFFER_LEN, format, argptr);
     va_end(argptr);
     snprintf(print_buffer + strlen(print_buffer), PRINT_BUFFER_LEN, "\n");
-    fifo_write_bytes(&usb_output_fifo, (uint8_t *)print_buffer, strlen(print_buffer));
+    fifo_write_bytes(&usb_output_fifo, (uint8_t *)print_buffer,
+                     strlen(print_buffer));
     osMutexRelease(print_mutex);
   }
 }
@@ -90,7 +88,8 @@ void log_raw(const char *format, ...) {
     vsnprintf(print_buffer, PRINT_BUFFER_LEN, format, argptr);
     va_end(argptr);
     snprintf(print_buffer + strlen(print_buffer), PRINT_BUFFER_LEN, "\n");
-    fifo_write_bytes(&usb_output_fifo, (uint8_t *)print_buffer, strlen(print_buffer));
+    fifo_write_bytes(&usb_output_fifo, (uint8_t *)print_buffer,
+                     strlen(print_buffer));
     osMutexRelease(print_mutex);
   }
 }
@@ -101,7 +100,8 @@ void log_rawr(const char *format, ...) {
     va_start(argptr, format);
     vsnprintf(print_buffer, PRINT_BUFFER_LEN, format, argptr);
     va_end(argptr);
-    fifo_write_bytes(&usb_output_fifo, (uint8_t *)print_buffer, strlen(print_buffer));
+    fifo_write_bytes(&usb_output_fifo, (uint8_t *)print_buffer,
+                     strlen(print_buffer));
     osMutexRelease(print_mutex);
   }
 }

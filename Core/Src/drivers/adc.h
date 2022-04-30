@@ -10,10 +10,8 @@
 #include "stm32f4xx_hal.h"
 
 typedef enum {
-	BATTERY = 0,
-	LIGHT,
-}adc_source_t;
+  ADC_SOURCE_BATTERY = 0,
+  ADC_SOURCE_LIGHT,
+} adc_source_t;
 
-uint32_t ADC_Get(adc_source_t channel);
-
-
+uint32_t adc_get(adc_source_t channel);

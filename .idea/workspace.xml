@@ -12,18 +12,70 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efe3bae5-fa76-4077-98ed-321e4087e03d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.cproject" beforeDir="false" afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cache-v2-94749bc2b26e482bc5f5.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-7a9ce6ca4c71a6f77148.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-004a29a960ab7f0fe712.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2022-03-31T12-13-31-0599.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-reefing-system-firmware.elf-Debug-6d87eb02effed20d368b.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/cli/cli_commands.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/cli/cli_commands.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/cli/settings.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/cli/settings.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/config/config.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/config/config.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/config/config.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/config/config.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/config/globals.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/config/globals.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/config/globals.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/config/globals.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/drivers/adc.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/drivers/adc.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/drivers/adc.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/drivers/adc.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/drivers/sleep.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/drivers/sleep.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/flight/fsm.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/flight/fsm.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/flight/fsm.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/flight/fsm.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/flight/kalman_filter.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/flight/kalman_filter.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/flight/state_transition.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/flight/state_transition.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/flight/state_transition.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/flight/state_transition.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/init/init.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/init/init.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/init/init.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/init/init.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/sensors/max6675.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/sensors/max6675.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/sensors/max6675.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/sensors/max6675.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/sensors/ms5607.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/sensors/ms5607.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/tasks/definition.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/tasks/definition.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/tasks/task_buzzer.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/tasks/task_buzzer.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/tasks/task_cli.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/tasks/task_cli.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/tasks/task_fsm.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/tasks/task_fsm.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/tasks/task_heater.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/tasks/task_heater.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/tasks/task_sensor_read.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/tasks/task_sensor_read.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/tasks/task_state_est.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/tasks/task_state_est.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/tasks/task_supervision.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/tasks/task_supervision.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/tasks/task_telemetry.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/tasks/task_telemetry.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/util/fifo.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/util/fifo.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/util/log.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/util/log.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/cli/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/cli/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/config/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/config/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/drivers/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/drivers/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/sensors/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/sensors/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/tasks/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/tasks/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/util/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/util/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Middlewares/ST/STM32_USB_Device_Library/Core/Src/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Middlewares/ST/STM32_USB_Device_Library/Core/Src/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Middlewares/Third_Party/FreeRTOS/Source/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Middlewares/Third_Party/FreeRTOS/Source/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/USB/App/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/USB/App/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/USB/Target/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/USB/Target/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/objects.list" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/objects.list" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/reefing-system-firmware.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/reefing-system-firmware.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/reefing-system-firmware.list" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/reefing-system-firmware.list" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/sources.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/sources.mk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.21.1/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.21.1/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.21.1/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.21.1/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reefing-system-firmware Debug.launch" beforeDir="false" afterPath="$PROJECT_DIR$/reefing-system-firmware Debug.launch" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +148,8 @@
       <workItem from="1648566980090" duration="650000" />
       <workItem from="1648728381644" duration="1021000" />
       <workItem from="1649341286290" duration="154000" />
+      <workItem from="1650455507767" duration="2871000" />
+      <workItem from="1651067808356" duration="687000" />
     </task>
     <servers />
   </component>

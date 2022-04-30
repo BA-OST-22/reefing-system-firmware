@@ -23,6 +23,7 @@ RM := rm -rf
 -include Core/Src/tasks/subdir.mk
 -include Core/Src/target/subdir.mk
 -include Core/Src/sensors/subdir.mk
+-include Core/Src/recorder/subdir.mk
 -include Core/Src/init/subdir.mk
 -include Core/Src/flight/subdir.mk
 -include Core/Src/drivers/subdir.mk

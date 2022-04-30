@@ -18,16 +18,16 @@
 
 #pragma once
 
-#include <stdbool.h>
 #include "stm32f4xx_hal.h"
+#include <stdbool.h>
 
 typedef struct {
-  uint32_t head;
-  uint32_t tail;
-  uint32_t used;
-  uint32_t size;
+  volatile uint32_t head;
+  volatile uint32_t tail;
+  volatile uint32_t used;
+  volatile uint32_t size;
   uint8_t *data;
-  //osSemaphoreId_t semaphore_id;
+  // osSemaphoreId_t semaphore_id;
   volatile bool mutex;
 } fifo_t;
 
@@ -39,7 +39,8 @@ uint8_t fifo_read(fifo_t *fifo);
 bool fifo_write(fifo_t *fifo, uint8_t data);
 
 bool fifo_read_bytes(fifo_t *fifo, uint8_t *data, uint32_t count);
-uint32_t fifo_read_until(fifo_t *fifo, uint8_t *data, uint8_t delimiter, uint32_t count);
+uint32_t fifo_read_until(fifo_t *fifo, uint8_t *data, uint8_t delimiter,
+                         uint32_t count);
 
 bool fifo_write_bytes(fifo_t *fifo, uint8_t *data, uint32_t count);
 

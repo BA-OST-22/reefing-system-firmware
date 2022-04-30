@@ -30,5 +30,5 @@ void state_transition_descent_deployment();
 /* Transition Deployment -> Recovery */
 void state_transition_deployment_recovery();
 
-/* Transition Recovery -> Deep Sleep */
-void state_transition_recovery_deepsleep();
+/* Transition Recovery -> Idle */
+void state_transition_recovery_idle();

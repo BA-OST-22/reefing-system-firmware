@@ -26,6 +26,7 @@ Core/Src/drivers \
 Core/Src/flight \
 Core/Src \
 Core/Src/init \
+Core/Src/recorder \
 Core/Src/sensors \
 Core/Src/target \
 Core/Src/tasks \

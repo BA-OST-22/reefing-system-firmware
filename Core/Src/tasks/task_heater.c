@@ -5,48 +5,63 @@
  *      Author: Luca
  */
 
-
-#include "cmsis_os.h"
 #include "task_heater.h"
+#include "cmsis_os.h"
 #include "config/globals.h"
 #include "drivers/dcdc.h"
 #include "sensors/max6675.h"
-#include "util/log.h"
 #include "target/target.h"
+#include "util/log.h"
 
-#define SAMPLING_FREQ_HEATER 1 //Hz
+#define SAMPLING_FREQ_HEATER 10 // Hz
+
+#define PREHEAT_VOLTAGE 6.0f
+#define HEAT_VOLTAGE 12.2f
 
 void task_heater(void *argument) {
+  log_debug("Task Heater started");
 
-	HAL_GPIO_WritePin(P_EN_CUT_GPIO_Port, P_EN_CUT_Pin, GPIO_PIN_SET);
+  dcdc_disable();
 
-	dcdc_set_voltage(12);
-	dcdc_enable();
+  uint32_t tick_count = osKernelGetTickCount();
+  uint32_t tick_update = osKernelGetTickFreq() / SAMPLING_FREQ_HEATER;
+  while (1) {
 
-	osDelay(1000);
-	HAL_GPIO_WritePin(CUT_EN_GPIO_Port, CUT_EN_Pin, GPIO_PIN_SET);
+    heater_mode_e mode =
+        osEventFlagsWait(heater_mode_id, 0xFF, osFlagsWaitAny, 0);
 
-	osDelay(15000);
+    if (mode == HEATER_MODE_IDLE) {
+      dcdc_disable();
+      HAL_GPIO_WritePin(CUT_EN_GPIO_Port, CUT_EN_Pin, GPIO_PIN_RESET);
+    } else if (mode == HEATER_MODE_PREHEAT) {
+      dcdc_set_voltage(PREHEAT_VOLTAGE);
+      dcdc_enable();
+      osDelay(100);
+      HAL_GPIO_WritePin(CUT_EN_GPIO_Port, CUT_EN_Pin, GPIO_PIN_SET);
+    } else if (mode == HEATER_MODE_HEAT) {
+      dcdc_set_voltage(HEAT_VOLTAGE);
+      dcdc_enable();
+      osDelay(100);
+      HAL_GPIO_WritePin(CUT_EN_GPIO_Port, CUT_EN_Pin, GPIO_PIN_SET);
+    } else if (mode == HEATER_MODE_SHUTDOWN) {
+      dcdc_disable();
+      HAL_GPIO_WritePin(CUT_EN_GPIO_Port, CUT_EN_Pin, GPIO_PIN_RESET);
+      log_debug("Task Heater stopped");
+      osThreadTerminate(osThreadGetId());
+    }
 
-	dcdc_disable();
-	HAL_GPIO_WritePin(CUT_EN_GPIO_Port, CUT_EN_Pin, GPIO_PIN_RESET);
+    float temperature = 0;
+    thermocouple_status_e status;
+    status = get_temperature(&temperature);
 
-	uint32_t tick_count = osKernelGetTickCount();
-	uint32_t tick_update = 5000; //osKernelGetTickFreq() / SAMPLING_FREQ_HEATER;
-	while (1) {
-		float temperature = 0;
-		thermocouple_status_t status;
+    if (status != TMP_OK) {
+      log_error("No thermocouple connected!");
+    } else {
+      // log_info("Current thermocouple temperature: %ld",
+      // (int32_t)temperature);
+    }
 
-		status = get_temperature(&temperature);
-
-		if(status != TMP_OK) {
-			log_error("No thermocouple connected!");
-		} else {
-			log_info("Current thermocouple temperature: %ld", (int32_t)temperature);
-		}
-
-
-		tick_count += tick_update;
-		osDelayUntil(tick_count);
-	}
+    tick_count += tick_update;
+    osDelayUntil(tick_count);
+  }
 }

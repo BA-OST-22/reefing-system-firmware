@@ -58,6 +58,7 @@ dkms.conf
 bin/
 tmp/
 debug/
+Debug/
 *.tmp
 *.bak
 *.swp

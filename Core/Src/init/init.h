@@ -6,5 +6,6 @@ void init();
 
 void SystemClock_Config(void);
 void init_cli();
+void deinit_cli();
 void init_idle();
 void init_deepsleep();

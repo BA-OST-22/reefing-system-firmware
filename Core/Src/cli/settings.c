@@ -17,23 +17,27 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "config/config.h"
 #include "cli/settings.h"
+#include "config/config.h"
 
-const char* const lookup_table_boot_state[] = {
-    "CATS_INVALID", "CATS_IDLE", "CATS_CONFIG", "CATS_TIMER", "CATS_DROP", "CATS_FLIGHT",
+const char *const lookup_table_boot_state[] = {
+    "CATS_INVALID", "CATS_IDLE", "CATS_CONFIG",
+    "CATS_TIMER",   "CATS_DROP", "CATS_FLIGHT",
 };
 
-const char* const lookup_table_events[] = {
-    "MOVING", "READY", "LIFTOFF", "MAX_V", "APOGEE", "POST_APOGEE", "TOUCHDOWN", "CUSTOM_1", "CUSTOM_2",
+const char *const lookup_table_events[] = {
+    "MOVING",      "READY",     "LIFTOFF",  "MAX_V",    "APOGEE",
+    "POST_APOGEE", "TOUCHDOWN", "CUSTOM_1", "CUSTOM_2",
 };
 
-const char* const lookup_table_actions[] = {
-    "NONE",   "DELAY",   "HC_ONE",  "HC_TWO",    "HC_THREE",  "HC_FOUR",     "HC_FIVE",    "HC_SIX",   "LL_ONE",
-    "LL_TWO", "LL_TREE", "LL_FOUR", "SERVO_ONE", "SERVO_TWO", "SERVO_THREE", "SERVO_FOUR", "RECORDER",
+const char *const lookup_table_actions[] = {
+    "NONE",       "DELAY",    "HC_ONE",    "HC_TWO",    "HC_THREE",
+    "HC_FOUR",    "HC_FIVE",  "HC_SIX",    "LL_ONE",    "LL_TWO",
+    "LL_TREE",    "LL_FOUR",  "SERVO_ONE", "SERVO_TWO", "SERVO_THREE",
+    "SERVO_FOUR", "RECORDER",
 };
 
-#define LOOKUP_TABLE_ENTRY(name) \
+#define LOOKUP_TABLE_ENTRY(name)                                               \
   { name, ARRAYLEN(name) }
 
 const lookup_table_entry_t lookup_tables[] = {
@@ -45,12 +49,18 @@ const lookup_table_entry_t lookup_tables[] = {
 #undef LOOKUP_TABLE_ENTRY
 
 const cli_value_t value_table[] = {
-	{"acc_threshold", 	VAR_UINT16, 				.config.minmax_unsigned = {15, 80}, 	&global_config.config.liftoff_acc_threshold},
-    {"main_altitude", 	VAR_UINT16, 				.config.minmax_unsigned = {10, 65535}, 	&global_config.config.main_altitude},
-	{"use_telemetry", 	VAR_UINT8, 					.config.minmax_unsigned = {0, 1}, 		&global_config.config.use_telemetry},
-	{"link_phrase", 	VAR_UINT8 | MODE_STRING, 	.config.string = {4, 10}, 				global_config.config.link_phrase},
-
-
+    {"acc_threshold", VAR_UINT16, .config.minmax_unsigned = {15, 80},
+     &global_config.config.liftoff_acc_threshold},
+    {"main_altitude", VAR_UINT16, .config.minmax_unsigned = {10, 65535},
+     &global_config.config.main_altitude},
+    {"enable_telemetry", VAR_UINT8, .config.minmax_unsigned = {0, 1},
+     &global_config.config.enable_telemetry},
+    {"enable_preheat", VAR_UINT8, .config.minmax_unsigned = {0, 1},
+     &global_config.config.enable_preheat},
+    {"buzzer_volume", VAR_UINT8, .config.minmax_unsigned = {0, 100},
+     &global_config.config.buzzer_volume},
+    {"link_phrase", VAR_UINT8 | MODE_STRING, .config.string = {4, 10},
+     global_config.config.link_phrase},
 };
 
 const uint16_t value_table_entry_count = ARRAYLEN(value_table);

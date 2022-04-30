@@ -5,11 +5,11 @@
 #include <stdbool.h>
 
 // Commands
-#define COMMAND_RESET           0x1E
+#define COMMAND_RESET 0x1E
 #define COMMAND_CONVERT_D1_BASE 0x40
 #define COMMAND_CONVERT_D2_BASE 0x50
-#define COMMAND_ADC_READ        0x00
-#define COMMAND_PROM_READ_BASE  0xA0
+#define COMMAND_ADC_READ 0x00
+#define COMMAND_PROM_READ_BASE 0xA0
 
 // Conversion time
 #define BARO_CONVERSION_TIME_OSR_BASE 0.6f
@@ -18,12 +18,15 @@
 
 static uint32_t get_conversion_ticks(MS5607 *dev);
 // Read bytes
-static void ms_read_bytes(MS5607 *dev, uint8_t command, uint8_t *pData, uint16_t size);
+static void ms_read_bytes(MS5607 *dev, uint8_t command, uint8_t *pData,
+                          uint16_t size);
 // Write command
 static void ms_write_command(MS5607 *dev, uint8_t command);
 static void read_calibration(MS5607 *dev);
 
-inline uint16_t uint8_to_uint16(uint8_t src_high, uint8_t src_low) { return (src_high << 8 | src_low); }
+uint16_t uint8_to_uint16(uint8_t src_high, uint8_t src_low) {
+  return (src_high << 8 | src_low);
+}
 
 /** Exported Function Definitions **/
 
@@ -64,7 +67,8 @@ void ms5607_prepare_pres(MS5607 *dev) {
  * @param pressure
  * @return true if reading successful
  */
-bool ms5607_get_temp_pres(MS5607 *dev, int32_t *temperature, int32_t *pressure) {
+bool ms5607_get_temp_pres(MS5607 *dev, int32_t *temperature,
+                          int32_t *pressure) {
   int64_t OFF, SENS;
   int64_t dT;
   int32_t temp, pres;
@@ -75,8 +79,10 @@ bool ms5607_get_temp_pres(MS5607 *dev, int32_t *temperature, int32_t *pressure) 
   *temperature = (int32_t)2000 + (dT * dev->coefficients[5] >> 23);
 
   pres = (dev->raw_pres[0] << 16) + (dev->raw_pres[1] << 8) + dev->raw_pres[2];
-  OFF = ((int64_t)dev->coefficients[1] << 17) + ((dev->coefficients[3] * dT) >> 6);
-  SENS = ((int64_t)dev->coefficients[0] << 16) + ((dev->coefficients[2] * dT) >> 7);
+  OFF = ((int64_t)dev->coefficients[1] << 17) +
+        ((dev->coefficients[3] * dT) >> 6);
+  SENS = ((int64_t)dev->coefficients[0] << 16) +
+         ((dev->coefficients[2] * dT) >> 7);
   /* Pressure in 110002 = 1100.02 mbar */
   *pressure = (int32_t)((((pres * SENS) >> 21) - OFF) >> 15);
   return true;
@@ -97,13 +103,16 @@ bool ms5607_get_pres(MS5607 *dev, int32_t *pressure) {
   temp = (dev->raw_temp[0] << 16) + (dev->raw_temp[1] << 8) + dev->raw_temp[2];
   dT = temp - ((int32_t)dev->coefficients[4] << 8);
 
-  if (dev->data == MS5607_PRESSURE){
-	  ms5607_read_raw(dev);
-  } else return false;
+  if (dev->data == MS5607_PRESSURE) {
+    ms5607_read_raw(dev);
+  } else
+    return false;
 
   pres = (dev->raw_pres[0] << 16) + (dev->raw_pres[1] << 8) + dev->raw_pres[2];
-  OFF = ((int64_t)dev->coefficients[1] << 17) + ((dev->coefficients[3] * dT) >> 6);
-  SENS = ((int64_t)dev->coefficients[0] << 16) + ((dev->coefficients[2] * dT) >> 7);
+  OFF = ((int64_t)dev->coefficients[1] << 17) +
+        ((dev->coefficients[3] * dT) >> 6);
+  SENS = ((int64_t)dev->coefficients[0] << 16) +
+         ((dev->coefficients[2] * dT) >> 7);
   /* Pressure in 110002 = 1100.02 mbar */
   *pressure = (int32_t)((((pres * SENS) >> 21) - OFF) >> 15);
   return true;
@@ -113,13 +122,17 @@ bool ms5607_get_pres(MS5607 *dev, int32_t *pressure) {
 
 static uint32_t get_conversion_ticks(MS5607 *dev) {
   uint32_t time;
-  time = (BARO_CONVERSION_TIME_OSR_BASE * ((float)dev->osr + 1) * osKernelGetTickFreq()) / 1000;
-  if (time < 1) time = 1;
+  time = (BARO_CONVERSION_TIME_OSR_BASE * ((float)dev->osr + 1) *
+          osKernelGetTickFreq()) /
+         1000;
+  if (time < 1)
+    time = 1;
   return time;
 }
 
 // Read bytes
-static void ms_read_bytes(MS5607 *dev, uint8_t command, uint8_t *pData, uint16_t size) {
+static void ms_read_bytes(MS5607 *dev, uint8_t command, uint8_t *pData,
+                          uint16_t size) {
   HAL_GPIO_WritePin(dev->cs_port, dev->cs_pin, GPIO_PIN_RESET);
   HAL_SPI_Transmit(dev->spi_handle, &command, 1, 1);
   HAL_SPI_Receive(dev->spi_handle, pData, size, 1);
@@ -128,9 +141,9 @@ static void ms_read_bytes(MS5607 *dev, uint8_t command, uint8_t *pData, uint16_t
 
 // Write command
 static void ms_write_command(MS5607 *dev, uint8_t command) {
-	HAL_GPIO_WritePin(dev->cs_port, dev->cs_pin, GPIO_PIN_RESET);
-	HAL_SPI_Transmit(dev->spi_handle, &command, 1, 1);
-	HAL_GPIO_WritePin(dev->cs_port, dev->cs_pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(dev->cs_port, dev->cs_pin, GPIO_PIN_RESET);
+  HAL_SPI_Transmit(dev->spi_handle, &command, 1, 1);
+  HAL_GPIO_WritePin(dev->cs_port, dev->cs_pin, GPIO_PIN_SET);
 }
 
 static void read_calibration(MS5607 *dev) {
@@ -146,7 +159,8 @@ bool ms5607_read_raw(MS5607 *dev) {
     ms_read_bytes(dev, COMMAND_ADC_READ, dev->raw_pres, 3);
   else if (dev->data == MS5607_TEMPERATURE)
     ms_read_bytes(dev, COMMAND_ADC_READ, dev->raw_temp, 3);
-  else return false;
+  else
+    return false;
   dev->data = MS5607_PRESSURE;
   return true;
 }

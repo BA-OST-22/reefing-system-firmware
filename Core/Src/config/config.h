@@ -1,7 +1,7 @@
 #pragma once
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 /* The system will reload the default config when the number changes */
 /* Config version 1 / Minor 0 */
@@ -13,8 +13,10 @@ typedef struct {
   uint32_t main_altitude;
   uint32_t liftoff_acc_threshold;
   uint32_t timer_duration;
-  uint8_t use_telemetry;
+  uint8_t enable_telemetry;
+  uint8_t enable_preheat;
   uint8_t link_phrase[10];
+  uint8_t buzzer_volume;
 } config_t;
 
 typedef union {
