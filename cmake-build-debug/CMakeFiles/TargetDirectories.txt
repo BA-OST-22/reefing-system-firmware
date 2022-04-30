@@ -1,3 +1,0 @@
-C:/Users/luca.jost/My Drive/Projects/BA/reefing-system-firmware/cmake-build-debug/CMakeFiles/reefing-system-firmware.elf.dir
-C:/Users/luca.jost/My Drive/Projects/BA/reefing-system-firmware/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/luca.jost/My Drive/Projects/BA/reefing-system-firmware/cmake-build-debug/CMakeFiles/rebuild_cache.dir
