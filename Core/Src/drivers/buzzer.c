@@ -1,3 +1,20 @@
+/*
+ * Reefing System Bachelor Thesis Software
+ * Copyright (C) 2022 Institute for Microelectronics and Embedded Systems OST
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 #include "buzzer.h"
 #include "cmsis_os2.h"
@@ -9,11 +26,12 @@ void buzzer_beep(BUZ_DEV *dev, uint32_t duration) {
 
 // Set the volume between 0 and 100
 void buzzer_set_volume(BUZ_DEV *dev, uint16_t volume) {
-  if (volume > 100) volume = 100;
+  if (volume > 100)
+    volume = 100;
 
   TIM_OC_InitTypeDef sConfigOC;
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = (dev->arr / 200) * volume;  // set the pulse duration
+  sConfigOC.Pulse = (dev->arr / 200) * volume; // set the pulse duration
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   HAL_TIM_PWM_ConfigChannel(dev->timer, &sConfigOC, dev->channel);
@@ -52,13 +70,13 @@ void buzzer_set_freq(BUZ_DEV *dev, uint32_t frequency) {
 // Starts pwm timer
 void buzzer_start(BUZ_DEV *dev) {
   dev->started = 1;
-  HAL_TIM_PWM_Start(dev->timer, dev->channel);  // start pwm generation
+  HAL_TIM_PWM_Start(dev->timer, dev->channel); // start pwm generation
 }
 
 // Stops pwm timer
 void buzzer_stop(BUZ_DEV *dev) {
   dev->started = 0;
-  HAL_TIM_PWM_Stop(dev->timer, dev->channel);  // stop pwm generation
+  HAL_TIM_PWM_Stop(dev->timer, dev->channel); // stop pwm generation
   HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_RESET);
 }
 

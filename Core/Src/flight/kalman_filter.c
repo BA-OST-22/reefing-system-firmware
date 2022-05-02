@@ -13,6 +13,11 @@
 #include "util/linalg.h"
 #include <string.h>
 
+/**
+ * @brief  Initialize the Kalman filter
+ * @param  filter: Kalman filter structure
+ * @retval None
+ */
 void kalman_init(kalman_filter_t *filter) {
 
   /* Initialize to default values */
@@ -51,6 +56,29 @@ void kalman_init(kalman_filter_t *filter) {
 
 void kalman_reset() {}
 
+/*
+ * Reefing System Bachelor Thesis Software
+ * Copyright (C) 2022 Institute for Microelectronics and Embedded Systems OST
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/**
+ * @brief  Update the Kalman filter
+ * @param  filter: Kalman filter structure
+ * @retval None
+ */
 void kalman_predict(kalman_filter_t *filter) {
   /* Project the state ahead */
   /* x_hat = Ad*x_bar + Bd*u */
@@ -64,6 +92,11 @@ void kalman_predict(kalman_filter_t *filter) {
   add(filter->P_hat, filter->GdQGd_T, filter->P_hat, 4);
 }
 
+/**
+ * @brief  Update the Kalman filter
+ * @param  filter: Kalman filter structure
+ * @retval None
+ */
 void kalman_update(kalman_filter_t *filter) {
   /* Compute Kalman Gain */
   /* K = P_hat*H_T*(H*P_hat*H_T + R)^-1 */

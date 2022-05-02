@@ -1,3 +1,21 @@
+/*
+ * Reefing System Bachelor Thesis Software
+ * Copyright (C) 2022 Institute for Microelectronics and Embedded Systems OST
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 #include "init.h"
 #include "cmsis_os2.h"
 #include "main.h"
@@ -22,6 +40,12 @@ static void GPIO_sleep_state();
 
 static osThreadId_t cli_handle;
 
+/**
+ * @brief  Initialize full system
+ *
+ * @param  None
+ * @retval None
+ */
 void init() {
 
   /* Hardware init */

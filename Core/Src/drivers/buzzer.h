@@ -1,6 +1,6 @@
 /*
- * CATS Flight Software
- * Copyright (C) 2021 Control and Telemetry Systems
+ * Reefing System Bachelor Thesis Software
+ * Copyright (C) 2022 Institute for Microelectronics and Embedded Systems OST
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

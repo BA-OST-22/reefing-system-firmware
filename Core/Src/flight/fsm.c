@@ -1,3 +1,20 @@
+/*
+ * Reefing System Bachelor Thesis Software
+ * Copyright (C) 2022 Institute for Microelectronics and Embedded Systems OST
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 #include "fsm.h"
 #include "config/config.h"
@@ -21,6 +38,12 @@ const char *const state_name[] = {
     "ASCENT",  "DESCENT", "DEPLOYMENT", "RECOVERY",
 };
 
+/**
+ * @brief Updates the FSM state
+ *
+ * @param  fsm: pointer to the FSM structure
+ * @retval None
+ */
 void update_fsm(fsm_t *fsm) {
   fsm_state_e old_state = fsm->flight_state;
   switch (fsm->flight_state) {
@@ -59,6 +82,12 @@ void update_fsm(fsm_t *fsm) {
   }
 }
 
+/**
+ * @brief Checks the IDLE state
+ *
+ * @param  fsm: pointer to the FSM structure
+ * @retval None
+ */
 static void check_idle_state(fsm_t *fsm) {
 
   /* When button is pressed */
@@ -132,6 +161,12 @@ static void check_idle_state(fsm_t *fsm) {
   }
 }
 
+/**
+ * @brief Checks the DEEP_SLEEP state
+ *
+ * @param  fsm: pointer to the FSM structure
+ * @retval None
+ */
 static void check_deepsleep_state(fsm_t *fsm) {
   led_on();
   /* When button is pressed */
@@ -167,6 +202,12 @@ static void check_deepsleep_state(fsm_t *fsm) {
   }
 }
 
+/**
+ * @brief Checks the READY state
+ *
+ * @param  fsm: pointer to the FSM structure
+ * @retval None
+ */
 static void check_ready_state(fsm_t *fsm) {
   led_on();
   /* When button is pressed */
@@ -224,6 +265,12 @@ static void check_ready_state(fsm_t *fsm) {
   }
 }
 
+/**
+ * @brief Checks the ASCENT state
+ *
+ * @param  fsm: pointer to the FSM structure
+ * @retval None
+ */
 static void check_ascent_state(fsm_t *fsm) {
   if ((fsm->state_change_time + (MINIMUM_ASCENT_TIME * 10)) >
       osKernelGetTickCount())
@@ -248,6 +295,12 @@ static void check_ascent_state(fsm_t *fsm) {
   }
 }
 
+/**
+ * @brief Checks the DESCENT state
+ *
+ * @param  fsm: pointer to the FSM structure
+ * @retval None
+ */
 static void check_descent_state(fsm_t *fsm) {
   if ((fsm->state_change_time + (PARACHUTE_OPENING_TIME * 10)) >
       osKernelGetTickCount())
@@ -261,6 +314,12 @@ static void check_descent_state(fsm_t *fsm) {
   }
 }
 
+/**
+ * @brief Checks the DEPLOYMENT state
+ *
+ * @param  fsm: pointer to the FSM structure
+ * @retval None
+ */
 static void check_deplyoment_state(fsm_t *fsm) {
   if ((fsm->state_change_time + (BURN_TIME * 1000)) > osKernelGetTickCount())
     return;
@@ -268,6 +327,12 @@ static void check_deplyoment_state(fsm_t *fsm) {
   state_transition_deployment_recovery();
 }
 
+/**
+ * @brief Checks the RECOVERY state
+ *
+ * @param  fsm: pointer to the FSM structure
+ * @retval None
+ */
 static void check_recovery_state(fsm_t *fsm) {
   /* When button is pressed */
   if (HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin) == 0) {

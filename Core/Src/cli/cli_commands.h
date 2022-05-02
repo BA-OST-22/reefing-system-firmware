@@ -19,6 +19,7 @@
 
 #pragma once
 
+#include <stdio.h>
 typedef void cli_command_fn(const char *cmd_name, char *args);
 
 typedef struct {
@@ -28,7 +29,7 @@ typedef struct {
   cli_command_fn *cli_command;
 } clicmd_t;
 
-#define CLI_COMMAND_DEF(name, description, args, cli_command) \
+#define CLI_COMMAND_DEF(name, description, args, cli_command)                  \
   { name, description, args, cli_command }
 
 extern const clicmd_t cmd_table[];

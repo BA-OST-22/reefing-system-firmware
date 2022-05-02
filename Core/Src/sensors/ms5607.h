@@ -1,6 +1,6 @@
 /*
- * CATS Flight Software
- * Copyright (C) 2021 Control and Telemetry Systems
+ * Reefing System Bachelor Thesis Software
+ * Copyright (C) 2022 Institute for Microelectronics and Embedded Systems OST
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,14 +16,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-/* MS5607 Barometer Device Library */
-
 #pragma once
 
 #include "cmsis_os.h"
-#include <stdbool.h>
 #include "target/target.h"
-
+#include <stdbool.h>
 
 /** Exported Types **/
 
