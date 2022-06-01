@@ -44,6 +44,4 @@ void update_fsm(fsm_t *fsm);
 #define APOGEE_SAMPLES 50 // 0.5s
 #define MINIMUM_ASCENT_TIME 300 // 3s
 
-#define PARACHUTE_OPENING_TIME 300 // 2s
-
-#define BURN_TIME 20.0f // 20s
+#define PARACHUTE_OPENING_TIME 200 // 2s

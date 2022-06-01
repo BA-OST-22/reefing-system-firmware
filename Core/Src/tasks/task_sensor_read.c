@@ -82,6 +82,7 @@ void task_sensor_read(void *argument) {
       /* Disable the sensor and terminate the task */
       log_debug("Task Sensor Read stopped");
       lsm6dsr_shutdown(&IMU);
+      ms5607_deinit(&BARO);
       pm_cut_off();
       osThreadTerminate(osThreadGetId());
     }

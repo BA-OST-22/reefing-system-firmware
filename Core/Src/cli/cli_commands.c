@@ -431,7 +431,8 @@ static void cli_set_var(const cli_value_t *var, const uint32_t value) {
   }
 }
 
-static const char *recorder_lookup[] = {"", "ALT", "VEL", "EVT"};
+static const char *recorder_lookup[] = {"",     "ALTE", "VELE",
+                                        "ALTF", "ALTL", "EVT"};
 
 static void cli_cmd_read(const char *cmd_name, char *args) {
   uint32_t count = recorder_get_count(&recorder);

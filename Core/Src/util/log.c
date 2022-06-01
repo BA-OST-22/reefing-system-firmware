@@ -51,13 +51,18 @@ void log_init() {
 
 void log_set_level(int level) { L.level = level; }
 
-void log_enable() { L.enabled = true; }
+void log_enable() {
+#if configUSE_TRACE_FACILITY == 0
+  L.enabled = true;
+#endif
+}
 
 void log_disable() { L.enabled = false; }
 
 bool log_is_enabled() { return L.enabled; }
 
 void log_log(int level, const char *file, int line, const char *format, ...) {
+#if configUSE_TRACE_FACILITY == 0
   if (L.enabled && level >= L.level &&
       osMutexAcquire(print_mutex, 5U) == osOK) {
     /* fill buffer with metadata */
@@ -79,9 +84,11 @@ void log_log(int level, const char *file, int line, const char *format, ...) {
                      strlen(print_buffer));
     osMutexRelease(print_mutex);
   }
+#endif
 }
 
 void log_raw(const char *format, ...) {
+#if configUSE_TRACE_FACILITY == 0
   if (osMutexAcquire(print_mutex, 0U) == osOK) {
     va_list argptr;
     va_start(argptr, format);
@@ -92,9 +99,11 @@ void log_raw(const char *format, ...) {
                      strlen(print_buffer));
     osMutexRelease(print_mutex);
   }
+#endif
 }
 
 void log_rawr(const char *format, ...) {
+#if configUSE_TRACE_FACILITY == 0
   if (osMutexAcquire(print_mutex, 0U) == osOK) {
     va_list argptr;
     va_start(argptr, format);
@@ -104,4 +113,5 @@ void log_rawr(const char *format, ...) {
                      strlen(print_buffer));
     osMutexRelease(print_mutex);
   }
+#endif
 }

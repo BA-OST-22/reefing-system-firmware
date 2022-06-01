@@ -18,6 +18,7 @@
 
 #include "task_state_est.h"
 #include "cmsis_os.h"
+#include "config/config.h"
 #include "config/globals.h"
 #include "flight/kalman_filter.h"
 #include "util/log.h"
@@ -49,6 +50,7 @@ void task_state_est(void *argument) {
   float initial_pressure = (float)global_baro_data.pressure;
   float pressure_avarage = 0;
   uint32_t count = 0;
+  uint8_t n = 0;
 
   uint32_t tick_count = osKernelGetTickCount();
   uint32_t tick_update = osKernelGetTickFreq() / SAMPLING_FREQ;
@@ -92,12 +94,16 @@ void task_state_est(void *argument) {
 
     if (global_flight_state >= ASCENT) {
       /* Record estimates for flight analysis */
-      recorder_record(&recorder, osKernelGetTickCount(), REC_ALT_EST,
-                      (int16_t)(global_state_data.altitude_agl * 100.0f));
-      recorder_record(&recorder, osKernelGetTickCount(), REC_VEL_EST,
-                      (int16_t)(global_state_data.velocity * 100.0f));
-      recorder_record(&recorder, osKernelGetTickCount(), REC_ALT_FIL,
-                      (int16_t)(filter.altitude_agl * 100.0f));
+      n++;
+      if (n >= global_config.config.log_every_n) {
+        n = 0;
+        recorder_record(&recorder, osKernelGetTickCount(), REC_ALT_EST,
+                        (int16_t)(global_state_data.altitude_agl * 100.0f));
+        recorder_record(&recorder, osKernelGetTickCount(), REC_VEL_EST,
+                        (int16_t)(global_state_data.velocity * 100.0f));
+        recorder_record(&recorder, osKernelGetTickCount(), REC_ALT_FIL,
+                        (int16_t)(filter.altitude_agl * 100.0f));
+      }
     } else {
       /* Reset the zero altitude every 20 samples as long as we are not in
        * flight*/

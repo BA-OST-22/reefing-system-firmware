@@ -22,8 +22,8 @@
 #include <stdint.h>
 
 /* The system will reload the default config when the number changes */
-/* Config version 1 / Minor 0 */
-#define CONFIG_VERSION 100
+/* Config version 1 / Minor 2 */
+#define CONFIG_VERSION 103
 
 typedef struct {
   /* Needs to be in first position */
@@ -35,6 +35,9 @@ typedef struct {
   uint8_t enable_preheat;
   uint8_t link_phrase[10];
   uint8_t buzzer_volume;
+  uint8_t log_every_n;
+  uint8_t burn_duration;
+  uint8_t apogee_delay;
 } config_t;
 
 typedef union {

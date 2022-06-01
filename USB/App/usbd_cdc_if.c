@@ -209,9 +209,16 @@ static int8_t CDC_Control_FS(uint8_t cmd, uint8_t *pbuf, uint16_t length) {
 static int8_t CDC_Receive_FS(uint8_t *Buf, uint32_t *Len) {
   /* USER CODE BEGIN 6 */
   uint32_t buf_length = *Len;
+#if configUSE_TRACE_FACILITY == 0
   if (buf_length != 0) {
     fifo_write_bytes(&usb_input_fifo, Buf, buf_length);
   }
+#else
+  for (uint32_t i = 0; i < *Len; i++) {
+      trace_command_buffer.data[trace_command_buffer.idx] = Buf[i];
+      trace_command_buffer.idx++;
+   }
+#endif
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
   return (USBD_OK);

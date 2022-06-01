@@ -77,7 +77,9 @@ void init() {
   supervisor_mode_id = osEventFlagsNew(NULL);
 
   /* USB Init */
-
+#if (configUSE_TRACE_FACILITY == 1)
+  vTraceEnable(TRC_INIT);
+#endif
   fifo_init(&usb_output_fifo, usb_fifo_out_buffer, USB_OUTPUT_BUFFER_SIZE);
   fifo_init(&usb_input_fifo, usb_fifo_in_buffer, USB_INPUT_BUFFER_SIZE);
 
@@ -352,16 +354,18 @@ static void MX_GPIO_Init(void) {
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, TC_CS_Pin | R_CS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB,
-                    BARO_CS_Pin | IMU_CS_Pin | DCDC_EN_Pin | CUT_EN_Pin |
-                        P_EN_LIGHT_Pin | P_EN_CUT_Pin | P_EN_RADIO_Pin,
+                    DCDC_EN_Pin | CUT_EN_Pin | P_EN_LIGHT_Pin | P_EN_CUT_Pin |
+                        P_EN_RADIO_Pin,
                     GPIO_PIN_RESET);
+
+  HAL_GPIO_WritePin(GPIOB, BARO_CS_Pin | IMU_CS_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin : LED_Pin */
   GPIO_InitStruct.Pin = LED_Pin;
@@ -420,6 +424,7 @@ static void MX_GPIO_Init(void) {
 
 static void GPIO_sleep_state() {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
+  MX_GPIO_Init();
 
   /* GPIO Port A */
   //	GPIO_InitStruct.Pin = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_3 | GPIO_PIN_4

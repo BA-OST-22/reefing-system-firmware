@@ -67,6 +67,8 @@ void ms5607_init(MS5607 *dev) {
   osDelay(1);
 }
 
+void ms5607_deinit(MS5607 *dev) { ms_write_command(dev, COMMAND_RESET); }
+
 void ms5607_prepare_temp(MS5607 *dev) {
   uint8_t command;
   dev->data = MS5607_TEMPERATURE;

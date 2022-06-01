@@ -57,6 +57,7 @@ typedef struct ms5607_dev {
 /** Exported Functions **/
 
 void ms5607_init(MS5607 *dev);
+void ms5607_deinit(MS5607 *dev);
 
 void ms5607_prepare_temp(MS5607 *dev);
 void ms5607_prepare_pres(MS5607 *dev);

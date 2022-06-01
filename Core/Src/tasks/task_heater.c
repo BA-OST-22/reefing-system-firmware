@@ -26,7 +26,7 @@
 
 #define SAMPLING_FREQ_HEATER 10 // Hz
 
-#define PREHEAT_VOLTAGE 6.0f
+#define PREHEAT_VOLTAGE 5.2f
 #define HEAT_VOLTAGE 12.2f
 
 void task_heater(void *argument) {

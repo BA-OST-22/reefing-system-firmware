@@ -59,8 +59,15 @@ const cli_value_t value_table[] = {
      &global_config.config.enable_preheat},
     {"buzzer_volume", VAR_UINT8, .config.minmax_unsigned = {0, 100},
      &global_config.config.buzzer_volume},
+    {"log_every_n", VAR_UINT8, .config.minmax_unsigned = {0, 10},
+     &global_config.config.log_every_n},
+    {"burn_duration", VAR_UINT8, .config.minmax_unsigned = {10, 100},
+     &global_config.config.burn_duration},
+    {"apogee_delay", VAR_UINT8, .config.minmax_unsigned = {0, 250},
+     &global_config.config.apogee_delay},
     {"link_phrase", VAR_UINT8 | MODE_STRING, .config.string = {4, 10},
      global_config.config.link_phrase},
+
 };
 
 const uint16_t value_table_entry_count = ARRAYLEN(value_table);

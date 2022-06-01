@@ -302,11 +302,12 @@ static void check_ascent_state(fsm_t *fsm) {
  * @retval None
  */
 static void check_descent_state(fsm_t *fsm) {
-  if ((fsm->state_change_time + (PARACHUTE_OPENING_TIME * 10)) >
-      osKernelGetTickCount())
+  if ((fsm->state_change_time + ((uint32_t)global_config.config.apogee_delay *
+                                 1000)) > osKernelGetTickCount())
     return;
   float est_alt_at_deployment =
-      (global_state_data.velocity * BURN_TIME) + global_state_data.altitude_agl;
+      (global_state_data.velocity * global_config.config.burn_duration) +
+      global_state_data.altitude_agl;
 
   if ((float)global_config.config.main_altitude >= est_alt_at_deployment) {
     fsm->flight_state = DEPLOYMENT;
@@ -321,7 +322,8 @@ static void check_descent_state(fsm_t *fsm) {
  * @retval None
  */
 static void check_deplyoment_state(fsm_t *fsm) {
-  if ((fsm->state_change_time + (BURN_TIME * 1000)) > osKernelGetTickCount())
+  if ((fsm->state_change_time + ((global_config.config.burn_duration + 5.0f) *
+                                 1000)) > osKernelGetTickCount())
     return;
   fsm->flight_state = RECOVERY;
   state_transition_deployment_recovery();

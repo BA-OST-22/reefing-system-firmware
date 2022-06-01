@@ -28,6 +28,9 @@ const config_u DEFAULT_CONFIG = {
     .config.enable_telemetry = 0,
     .config.enable_preheat = 0,
     .config.buzzer_volume = 20,
+    .config.burn_duration = 25,
+    .config.log_every_n = 2,
+    .config.apogee_delay = 2,
 };
 
 config_u global_config = {};
