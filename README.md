@@ -3,7 +3,7 @@
 # Reefing System Firmware
 
 
-## Open Sorce
+## Open Source
 All Reefing System code is open source and can be used free of charge without warranty.
 
 ## Pushing to Remote Repository
